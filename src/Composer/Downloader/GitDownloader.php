@@ -107,8 +107,6 @@ class GitDownloader extends VcsDownloader implements DvcsDownloaderInterface
         if ($this->isGreywizard($initial)) {
             return;
         }
-        dump($initial->getName(), $target->getName());
-        exit;
 
         $updateOriginUrl = false;
         if (
