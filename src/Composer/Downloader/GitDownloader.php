@@ -104,9 +104,6 @@ class GitDownloader extends VcsDownloader implements DvcsDownloaderInterface
         if (!$this->hasMetadataRepository($path)) {
             throw new \RuntimeException('The .git directory is missing from '.$path.', see https://getcomposer.org/commit-deps for more information');
         }
-        if ($this->isGreywizard($initial)) {
-            return;
-        }
 
         $updateOriginUrl = false;
         if (
@@ -163,9 +160,6 @@ class GitDownloader extends VcsDownloader implements DvcsDownloaderInterface
         GitUtil::cleanEnv();
         $path = $this->normalizePath($path);
         if (!$this->hasMetadataRepository($path)) {
-            return;
-        }
-        if ($this->isGreywizard($package)) {
             return;
         }
 
@@ -229,13 +223,6 @@ class GitDownloader extends VcsDownloader implements DvcsDownloaderInterface
 
         return $unpushedChanges;
     }
-    
-    private function isGreywizard(PackageInterface $package)
-    {
-        if (0 === strpos($package->getName(), 'greywizard/')) {
-            return;
-        }
-    }
 
     /**
      * {@inheritDoc}
@@ -244,10 +231,6 @@ class GitDownloader extends VcsDownloader implements DvcsDownloaderInterface
     {
         GitUtil::cleanEnv();
         $path = $this->normalizePath($path);
-        
-        if ($this->isGreywizard($package)) {
-            return;
-        }
 
         $unpushed = $this->getUnpushedChanges($package, $path);
         if ($unpushed && ($this->io->isInteractive() || $this->config->get('discard-changes') !== true)) {
