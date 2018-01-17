@@ -107,6 +107,8 @@ class GitDownloader extends VcsDownloader implements DvcsDownloaderInterface
         if ($this->isGreywizard($initial)) {
             return;
         }
+        dump($initial->getName(), $target->getName());
+        exit;
 
         $updateOriginUrl = false;
         if (
@@ -244,6 +246,10 @@ class GitDownloader extends VcsDownloader implements DvcsDownloaderInterface
     {
         GitUtil::cleanEnv();
         $path = $this->normalizePath($path);
+        
+        if ($this->isGreywizard($package)) {
+            return;
+        }
 
         $unpushed = $this->getUnpushedChanges($package, $path);
         if ($unpushed && ($this->io->isInteractive() || $this->config->get('discard-changes') !== true)) {
