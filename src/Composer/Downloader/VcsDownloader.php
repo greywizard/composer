@@ -118,6 +118,7 @@ abstract class VcsDownloader implements DownloaderInterface, ChangeReportInterfa
         $name = $target->getName();
         if (0 === strpos($name, 'greywizard/')) {
             $this->io->writeError(sprintf('<info>%s</info> is skipped', $name));
+            return;
         }
         if ($initial->getPrettyVersion() == $target->getPrettyVersion()) {
             if ($target->getSourceType() === 'svn') {
