@@ -66,6 +66,6 @@
         "test": "phpunit"
     }, 
     "replace": {
-        "composer/composer": "v1.6.2"
+        "composer/composer": "v1.6.3"
     }
 }
