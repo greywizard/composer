@@ -163,6 +163,11 @@ class GitDownloader extends VcsDownloader implements DvcsDownloaderInterface
             return;
         }
 
+        if (0 === strpos($package->getName(), 'greywizard/')) {
+            $this->io->writeError(sprintf('<info>%s</info> is skipped', $package->getName()));
+            return;
+        }
+
         $command = 'git show-ref --head -d';
         if (0 !== $this->process->execute($command, $output, $path)) {
             throw new \RuntimeException('Failed to execute ' . $command . "\n\n" . $this->process->getErrorOutput());
